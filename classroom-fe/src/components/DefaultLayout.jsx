@@ -10,8 +10,13 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />
   }
 
-  const onLogout = (e) => {
-    e.preventDefault();
+  const onLogout =  (ev) =>{
+    ev.preventDefault();
+    axiosClient.get('/logout')
+    .then(({}) => {
+       setUser(null)
+       setToken(null)
+    })
   }
 
   useEffect(() => {
