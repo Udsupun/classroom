@@ -22,7 +22,12 @@ class AuthController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         };
         $user = Auth::user();
-        $token = $user->create_token('main')->plainTextToken;
+        if ($user->role === 'student') {
+            $user->load('student');
+        } elseif ($user->role === 'teacher') {
+            $user->load('teacher');
+        }
+        $token = $user->createToken('main')->plainTextToken;
         return response()->json([
             'status' => true,
             'message' => 'User registerd',
