@@ -5,10 +5,11 @@ import { useStateContext } from "../contexts/ContextProvider.jsx";
 
 export default function DefaultLayout() {
   const { user, token, setUser, setToken } = useStateContext();
-  console.log(user);
   if (!token) {
     return <Navigate to="/login" />
   }
+
+  console.log(user);
 
   const onLogout =  (ev) =>{
     ev.preventDefault();

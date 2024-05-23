@@ -3,6 +3,8 @@ import Login from './views/Login.jsx';
 import DefaultLayout from "./components/DefaultLayout.jsx";
 import GuestLayout from "./components/GuestLayout.jsx";
 import Students from "./views/Student.jsx";
+import Classes from "./views/Classes.jsx";
+import Activites from "./views/Activites.jsx";
 
 const router = createBrowserRouter ([
   {
@@ -12,6 +14,14 @@ const router = createBrowserRouter ([
       {
         path: '/students',
         element: <Students />
+      },
+      {
+        path: '/classes',
+        element: <Classes />
+      },
+      {
+        path: '/activities',
+        element: <Activites />
       },
     ]
   },
