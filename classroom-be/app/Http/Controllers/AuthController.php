@@ -37,4 +37,11 @@ class AuthController extends Controller
             ]
         ], Response::HTTP_OK);
     }
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        $user->currentAccessToken()->delete();
+        return response('',204);
+    }
 }
