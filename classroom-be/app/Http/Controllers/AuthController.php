@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     /**
      * Handle user login
-     */
+    */
     public function login(LoginRequest $request)
     {
         $data = $request->validated();
@@ -38,6 +38,9 @@ class AuthController extends Controller
         ], Response::HTTP_OK);
     }
 
+    /**
+     * Handle user logout
+    */
     public function logout(Request $request)
     {
         $user = $request->user();
