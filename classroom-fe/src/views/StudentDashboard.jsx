@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../axiosClient.js";
-import { useStateContext } from "../contexts/ContextProvider.jsx";
+import Table from "../components/Table.jsx";
+import StudentProfile from "../components/StudentProfile.jsx";
+import TitleSection from "../components/TitleSection.jsx";
 
 export default function StudentDashboard() {
   const [data, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useStateContext();
-
-  if (user.role === 'teacher') {
-    return <Navigate to="/my-classrooms" />
-  }
 
   useEffect(()=> {
     getStudentDetails();
@@ -31,52 +27,23 @@ export default function StudentDashboard() {
 
   return(
     <div>
-      <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
-          {loading &&
-            <h3> Loading... </h3>
-          }
-          {!loading &&
-            <div>
-              <h3> Name: {data.details.name} </h3>
-              <h3> Grade: {data.grade.name} </h3>
-              <h3> Address: {data.details.address} </h3>
-            </div>
-          }
-      </div>
-      <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
-        <h2>My Activities</h2>
-      </div>
-      <div className="card animated fadeInDown">
-        <table>
-          <thead>
-          <tr>
-            <th>Activity</th>
-            <th>Subject</th>
-            <th>Score</th>
-          </tr>
-          </thead>
-          {loading &&
-            <tbody>
-            <tr>
-              <td colSpan="5" className="text-center">
-                Loading...
-              </td>
-            </tr>
-            </tbody>
-          }
-          {!loading &&
-            <tbody>
-            {data.activities.map(activity => (
-              <tr key={activity.uuid}>
-                <td>{activity.name}</td>
-                <td>{activity.subject}</td>
-                <td>{activity.score}</td>
-              </tr>
-            ))}
-            </tbody>
-          }
-        </table>
-      </div>
+      {
+        !loading &&
+        <div>
+          <StudentProfile
+            loading={loading}
+            name={data.details.name}
+            grade={data.grade.name}
+            address={data.details.address}
+          />
+          <TitleSection title="My Activities" />
+          <Table
+            headers={["Activity", "Subject", "Score"]}
+            data={data.activities.map((activity) => [activity.name, activity.subject, activity.score])}
+            loading={loading}
+          />
+        </div>
+      }
     </div>
   )
 }

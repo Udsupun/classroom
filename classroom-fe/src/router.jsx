@@ -2,8 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from './views/Login.jsx';
 import DefaultLayout from "./components/DefaultLayout.jsx";
 import GuestLayout from "./components/GuestLayout.jsx";
-import StudentDashboard from "./views/StudentDashboard.jsx";
-import TeacherDashboard from "./views/TeacherDashboard.jsx";
 import Dashboard from "./views/Dashboard.jsx";
 import Classroom from "./views/Classroom.jsx";
 import Activities from "./views/Activities.jsx";
@@ -16,14 +14,6 @@ const router = createBrowserRouter ([
       {
         path: '/dashboard',
         element: <Dashboard />
-      },
-      {
-        path: '/my-activities',
-        element: <StudentDashboard />
-      },
-      {
-        path: '/my-classrooms',
-        element: <TeacherDashboard />
       },
       {
         path: '/classroom/:classroom_id',

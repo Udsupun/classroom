@@ -33,7 +33,7 @@ input {
 }
 
 input:focus {
-    border-color: #5b08a7;
+    border-color: #852182;
 }
 
 .btn,
@@ -42,7 +42,7 @@ input:focus {
 .btn-delete {
     font-family: "Roboto", sans-serif;
     outline: 0;
-    background: #5b08a7;
+    background: #852182;
     border: 0;
     text-decoration: none;
     padding: 15px;
@@ -71,21 +71,10 @@ input:focus {
     background-color: #b72424;
 }
 
-.btn-logout {
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    color: #212121;
-    transition: all 0.3s;
-    border-radius: 6px;
-}
-.btn-logout:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
 .btn:hover,
 .btn:active,
 .btn:focus {
-    background: #5b08a7;
+    background: #852182;
 }
 
 .text-center {
@@ -101,7 +90,8 @@ table {
 table > thead > tr > th {
     text-align: left;
     padding: 0.5rem 0.5rem;
-    background-color: #efefef;
+    background-color: #333;
+	color: #fcfcfc;
 }
 
 table > tbody > tr > td {
@@ -110,33 +100,6 @@ table > tbody > tr > td {
     white-space: nowrap;
 }
 
-.card {
-    background-color: #FFF;
-    border-radius: 0.5rem;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1rem;
-    margin-top: 0.5rem;
-}
-
-.alert {
-    padding: 1rem;
-    background-color: #ff4040;
-    color: white;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.notification {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    z-index: 100;
-    padding: 1rem 1.5rem;
-    background-color: #00a762;
-    color: white;
-    border-radius: 0.5rem;
-}
 
 /* Login/Signup forms*/
 
@@ -171,7 +134,7 @@ table > tbody > tr > td {
 }
 
 .login-signup-form .form .message a {
-    color: #5b08a7;
+    color: #852182;
     text-decoration: none;
 }
 
@@ -184,7 +147,7 @@ table > tbody > tr > td {
 
 #defaultLayout aside {
     width: 240px;
-    background-color: #5b08a7;
+    background-color: #852182;
     padding: 1rem
 }
 
@@ -215,10 +178,6 @@ table > tbody > tr > td {
     align-items: center;
 }
 
-#defaultLayout main {
-    padding: 2rem;
-}
-
 .animated {
     -webkit-animation-duration: 0.3s;
     animation-duration: 0.3s;
@@ -244,13 +203,13 @@ table > tbody > tr > td {
 
 /* DefaultLayout.css */
 #defaultLayout {
-    font-family: Arial, sans-serif; /* Set default font family */
+    font-family: Arial, sans-serif;
   }
 
   .content {
-    max-width: 100%; /* Set max width for content */
-    margin: 0 auto; /* Center content horizontally */
-    padding: 20px; /* Add padding around content */
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
   }
 
   header {
@@ -258,12 +217,11 @@ table > tbody > tr > td {
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #ccc; /* Add border at the bottom of header */
+    border-bottom: 1px solid #ccc;
   }
 
-  .header-title {
-    font-size: 24px;
-    font-weight: bold;
+  .header-logo {
+      height: 75px;
   }
 
   .header-user {
@@ -276,7 +234,7 @@ table > tbody > tr > td {
   }
 
   .btn-logout {
-    background-color: #ff6347; /* Red color for logout button */
+    background-color: #852182;
     color: white;
     padding: 8px 16px;
     border: none;
@@ -287,9 +245,17 @@ table > tbody > tr > td {
   }
 
   .btn-logout:hover {
-    background-color: #cc4b3b; /* Darker red on hover */
+    background-color: #52034f;
   }
 
   main {
-    margin-top: 20px; /* Add space between header and main content */
+    margin-top: 20px;
   }
+
+  .title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px 25px 0px;
+  }
+

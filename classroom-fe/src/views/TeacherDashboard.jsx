@@ -4,6 +4,7 @@ import axiosClient from "../axiosClient.js";
 import { useStateContext } from "../contexts/ContextProvider.jsx";
 import { Link } from "react-router-dom";
 import '../css/teacher-dashboard.css';
+import TitleSection from "../components/TitleSection.jsx";
 
 export default function TeacherDashboard() {
   const [data, setDetails] = useState([]);
@@ -33,9 +34,9 @@ export default function TeacherDashboard() {
 
   return(
     <div className="dashboard-container">
-      <div className="dashboard-header">
-        {!loading && <h1>My Classes</h1>}
-      </div>
+      {!loading &&
+        <TitleSection title="My Classes" />
+      }
       <div className="dashboard-card">
         {loading ? (
           <div className="loading">Loading...</div>

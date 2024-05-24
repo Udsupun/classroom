@@ -36,7 +36,7 @@ export default function DefaultLayout() {
     <div id="defaultLayout">
       <div className="content">
         <header>
-          <div className="header-title">Amazing Layout</div>
+          <img className="header-logo" src="/logo.png" alt="Logo" />
           <div className="header-user">
             <span className="user-name">{user && user.first_name}</span>
             <a href="#" onClick={onLogout} className="btn-logout">Logout</a>

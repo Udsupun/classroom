@@ -1,14 +1,6 @@
 /* Classroom.css */
 .dashboard-container {
   padding: 20px;
-  font-family: monospace;
-}
-
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
 }
 
 .dashboard-card {
@@ -54,7 +46,7 @@
 }
 
 .btn-edit {
-  background: #007bff;
+  background: #852182;
   color: white;
   padding: 8px 12px;
   border-radius: 4px;
@@ -63,5 +55,5 @@
 }
 
 .btn-edit:hover {
-  background: #0056b3;
+  background: #680564;
 }
