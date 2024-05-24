@@ -8,9 +8,11 @@ use App\Models\User;
 use App\Models\Grade;
 use App\Models\ActivitySubmission;
 
-class Student extends Model
+class Student extends User
 {
     use HasFactory;
+
+    protected $table = 'users';
 
     protected $fillable = ['user_id', 'grade_id'];
 
