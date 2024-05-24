@@ -9,13 +9,9 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />
   }
 
-  if (user.role === 'student') {
-    return <Navigate to="/my-profile" />
-  }
-
   const onLogout =  (ev) =>{
     ev.preventDefault();
-    axiosClient.get('/logout')
+    axiosClient.post('/logout')
     .then(({}) => {
        setUser(null)
        setToken(null)

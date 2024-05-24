@@ -5,8 +5,8 @@ import { useStateContext } from "../contexts/ContextProvider.jsx";
 import { Link } from "react-router-dom";
 
 export default function StudentProfile() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [data, setDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { user } = useStateContext();
 
   if (user.role === 'teacher') {
@@ -21,30 +21,68 @@ export default function StudentProfile() {
     setLoading(true)
     axiosClient.get('/student-details')
       .then(({ data }) => {
-        setLoading(false)
-        setUsers(data.data)
+        console.log("!!!!@@@@");
+        setLoading(false);
+        setDetails(data.data);
+        console.log("RESPONSE DATA");
+        console.log(data);
+        console.log(loading);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
+        console.log("SET LOADING AND CATCH");
         setLoading(false)
       })
   }
 
   return(
-    <div id="defaultLayout">
-      <div className="content">
-        <header>
+    <div>
+    <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
+        {loading &&
+          <h3> Loading... </h3>
+        }
+        {!loading &&
           <div>
-            Header
+            <h3> Name: {data.first_name} {data.last_name} </h3>
+            <h3> Grade: {data.grade} </h3>
           </div>
-          <div>
-            {user.first_name}
-            <a href="#" onClick={onLogout} className="btn-logout">Logout</a>
-          </div>
-        </header>
-        <main>
-          <Outlet />
-        </main>
-      </div>
+        }
     </div>
-  )
+    <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
+      <h2>My Activities</h2>
+    </div>
+    <div className="card animated fadeInDown">
+      <table>
+        <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Score</th>
+          <th>Submitted Date</th>
+        </tr>
+        </thead>
+        {loading &&
+          <tbody>
+          <tr>
+            <td colSpan="5" className="text-center">
+              Loading...
+            </td>
+          </tr>
+          </tbody>
+        }
+        {!loading &&
+          <tbody>
+          {data.activities.map(activity => (
+            <tr key={activity.activity_id}>
+              <td>{activity.name}</td>
+              <td>{activity.score}</td>
+              <td>{activity.submitted_at}</td>
+            </tr>
+          ))}
+          </tbody>
+        }
+      </table>
+    </div>
+  </div>
+)
+
 }
