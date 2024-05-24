@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->string('name');
+            $table->string('subject');
+            $table->string('score');
             $table->timestamps();
         });
     }

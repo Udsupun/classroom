@@ -27,4 +27,23 @@ class TeacherController extends Controller
             'data' => StudentDetailsResource::make($user)
         ], Response::HTTP_OK);
     }
+
+    /**
+     * Take teacher classes
+    */
+    public function getTeacherStudents()
+    {
+        $user = Auth::user();
+        if ($user->role != 'teacher') {
+            return response()->json([
+                'status' => false,
+                'message' => 'student cannot access this page.',
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        return response()->json([
+            'message' => 'Student profile details and activities',
+            'data' => $user->teacher->grades->grade->students
+        ], Response::HTTP_OK);
+    }
 }

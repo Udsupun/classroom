@@ -17,7 +17,7 @@ class GradeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement(['Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10'])
+            'uuid' => $this->faker->uuid()
         ];
     }
 }

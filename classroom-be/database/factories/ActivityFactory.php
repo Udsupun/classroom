@@ -17,7 +17,10 @@ class ActivityFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->sentence(3),
+            'uuid' => $this->faker->uuid(),
+            'name' => $this->faker->sentence(2),
+            'subject' => 'Subject ' . $this->faker->text(10),
+            'score' => $this->faker->randomElement([20, 40, 60, 80, 100])
         ];
     }
 }

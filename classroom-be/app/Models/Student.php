@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Grade;
-use App\Models\ActivitySubmission;
+use App\Models\StudentActivity;
 
 class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'grade_id'];
+    protected $fillable = ['uuid', 'user_id', 'grade_id'];
 
     public function user()
     {
@@ -26,6 +26,6 @@ class Student extends Model
 
     public function activities()
     {
-        return $this->hasMany(ActivitySubmission::class);
+        return $this->hasMany(StudentActivity::class);
     }
 }

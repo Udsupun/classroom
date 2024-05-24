@@ -17,7 +17,7 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            'subject' => $this->faker->randomElement(['Science', 'Mathematics', 'Biology', 'Geography', 'History']),
+            'uuid' => $this->faker->uuid()
         ];
     }
 }

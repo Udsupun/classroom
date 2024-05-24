@@ -13,6 +13,7 @@ class TeacherGrade extends Model
 
     protected $table = 'teacher_grades';
     protected $fillable = ['teacher_id', 'grade_id'];
+    public $timestamps = false;
 
     public function teacher()
     {

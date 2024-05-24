@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Activity;
 use App\Models\Student;
 
-class ActivitySubmission extends Model
+class StudentActivity extends Model
 {
     use HasFactory;
 
-    protected $table = 'activity_submissions';
+    protected $table = 'student_activities';
     protected $fillable = ['student_id', 'activity_id', 'score'];
 
     protected $with = ['activity'];
