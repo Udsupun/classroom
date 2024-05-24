@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -16,38 +15,17 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $data = $request->validated();
-        $user = User::where('email', $data['email'])->firstOrFail();
-        Auth::guard($user->role)->attempt($data);
-
-        $user = Auth::guard($user->role)->user();
-
-        if ($user) {
-            $token = $user->createToken('main')->plainTextToken;
+        if (!Auth::attempt($data)){
             return response()->json([
-                'message' => 'User registerd',
-                'data' => [
-                    'user' => $user,
-                    'token' => $token
-                ]
-            ], Response::HTTP_OK);
-        }
-
-
-
-
-
-
-        // if (!Auth::attempt($data)){
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'User email or password wrong',
-        //     ], Response::HTTP_UNAUTHORIZED);
-        // };
+                'status' => false,
+                'message' => 'User email or password wrong',
+            ], Response::HTTP_UNAUTHORIZED);
+        };
         $user = Auth::user();
-        // match ($user->role) {
-        //     'student' => $user->load('student'),
-        //     'teacher' => $user->load('teacher')
-        // };
+        match ($user->role) {
+            'student' => $user->load('student'),
+            'teacher' => $user->load('teacher')
+        };
         // if ($user->role === 'student') {
         //     $user->load('student');
         // } elseif ($user->role === 'teacher') {
