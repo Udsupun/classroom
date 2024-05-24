@@ -26,7 +26,7 @@ export default function Classroom() {
     setLoading(true)
     axiosClient.get(`/grade-students/${classroom_id}`)
       .then(({ data }) => {
-        setLoading(true);
+        setLoading(false);
         setDetails(data.data);
       })
       .catch((e) => {
@@ -45,9 +45,9 @@ export default function Classroom() {
       <table>
         <thead>
         <tr>
-          <th>Activity</th>
-          <th>Score</th>
-          <th>Submitted Date</th>
+          <th>Name</th>
+          <th>email</th>
+          <th>Address</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -62,13 +62,13 @@ export default function Classroom() {
         }
         {!loading &&
           <tbody>
-          {data.activities.map(activity => (
-            <tr key={activity.activity_id}>
-              <td>{activity.name}</td>
-              <td>{activity.score}</td>
-              <td>{activity.submitted_at}</td>
+          {data.students.map(student => (
+            <tr key={student.uuid}>
+              <td>{student.name}</td>
+              <td>{student.email}</td>
+              <td>{student.address}</td>
               <td>
-                <Link className="btn-edit" to={'/users/' + activity.activity_id}>Edit</Link>
+                <Link className="btn-edit" to={'/users/' + student.uuid}>Go to Student</Link>
               </td>
             </tr>
           ))}
