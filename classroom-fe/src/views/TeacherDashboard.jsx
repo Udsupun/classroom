@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../axiosClient.js";
 import { useStateContext } from "../contexts/ContextProvider.jsx";
 import { Link } from "react-router-dom";
+import '../css/teacher-dashboard.css';
 
 export default function TeacherDashboard() {
   const [data, setDetails] = useState([]);
@@ -31,39 +32,27 @@ export default function TeacherDashboard() {
   }
 
   return(
-    <div>
-      <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
-        <h2>My Classes</h2>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        {!loading && <h1>My Classes</h1>}
       </div>
-      <div className="card animated fadeInDown">
-        <table>
-          <thead>
-          <tr>
-            <th>Class Name</th>
-          </tr>
-          </thead>
-          {loading &&
-            <tbody>
-            <tr>
-              <td colSpan="5" className="text-center">
-                Loading...
-              </td>
-            </tr>
-            </tbody>
-          }
-          {!loading &&
-            <tbody>
+      <div className="dashboard-card">
+        {loading ? (
+          <div className="loading">Loading...</div>
+        ) : (
+          <div className="classes-grid">
             {data.map(class_room => (
-              <tr key={class_room.uuid}>
-                <td>{class_room.name}</td>
-                <td>
-                  <Link className="btn-edit" to={'/classroom/' + class_room.uuid}>Go to Class</Link>
-                </td>
-              </tr>
+              <div key={class_room.uuid} className="class-card">
+                <div className="class-details">
+                  <div><strong>Name:</strong> {class_room.name}</div>
+                </div>
+                <div className="class-actions">
+                  <Link className="btn-edit" to={`/classroom/${class_room.uuid}`}>Go to Class</Link>
+                </div>
+              </div>
             ))}
-            </tbody>
-          }
-        </table>
+          </div>
+        )}
       </div>
     </div>
   )

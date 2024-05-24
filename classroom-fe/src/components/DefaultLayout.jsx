@@ -5,35 +5,40 @@ import { useStateContext } from "../contexts/ContextProvider.jsx";
 
 export default function DefaultLayout() {
   const { user, token, setUser, setToken } = useStateContext();
+
   if (!token) {
     return <Navigate to="/login" />
   }
 
-  const onLogout =  (ev) =>{
+  const onLogout = (ev) => {
     ev.preventDefault();
     axiosClient.post('/logout')
-    .then(({}) => {
-       setUser(null)
-       setToken(null)
-    })
-  }
+      .then(() => {
+        setUser(null);
+        setToken(null);
+      })
+      .catch(error => {
+        console.error('Logout error:', error);
+      });
+  };
 
   useEffect(() => {
     axiosClient.get('/user')
-      .then(({data}) => {
-         setUser(data)
+      .then(({ data }) => {
+        setUser(data);
       })
-  }, [])
+      .catch(error => {
+        console.error('Fetch user error:', error);
+      });
+  }, []);
 
-  return(
+  return (
     <div id="defaultLayout">
       <div className="content">
         <header>
-          <div>
-            Header
-          </div>
-          <div>
-            {user.first_name}
+          <div className="header-title">Amazing Layout</div>
+          <div className="header-user">
+            <span className="user-name">{user && user.first_name}</span>
             <a href="#" onClick={onLogout} className="btn-logout">Logout</a>
           </div>
         </header>
@@ -42,5 +47,5 @@ export default function DefaultLayout() {
         </main>
       </div>
     </div>
-  )
+  );
 }

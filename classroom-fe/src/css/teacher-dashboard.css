@@ -1,0 +1,67 @@
+/* Classroom.css */
+.dashboard-container {
+  padding: 20px;
+  font-family: monospace;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+}
+
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.class-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.class-details {
+  align-content: center !important;
+  margin-bottom: 10px;
+}
+
+.class-details div {
+  margin-bottom: 5px;
+}
+
+.class-actions {
+  text-align: center;
+}
+
+.btn-edit {
+  background: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-edit:hover {
+  background: #0056b3;
+}

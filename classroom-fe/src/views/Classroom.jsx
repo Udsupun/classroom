@@ -8,15 +8,6 @@ export default function Classroom() {
   const { classroom_id } = useParams();
   const [data, setDetails] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useStateContext();
-
-  console.log("PARAM");
-  console.log(classroom_id);
-
-  // if (user.role != 'teacher') {
-  //   return <Navigate to="/my-profile" />
-  // }
-  console.log(user.role);
 
   useEffect(()=> {
     getStudents();
@@ -38,8 +29,9 @@ export default function Classroom() {
   return(
     <div>
     <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
-      <h1>Users</h1>
-      <Link className="btn-add" to="/users/new">Add new</Link>
+      {!loading &&
+        <h1>{data.grade.name} Students</h1>
+      }
     </div>
     <div className="card animated fadeInDown">
       <table>
@@ -64,11 +56,11 @@ export default function Classroom() {
           <tbody>
           {data.students.map(student => (
             <tr key={student.uuid}>
-              <td>{student.name}</td>
-              <td>{student.email}</td>
-              <td>{student.address}</td>
+              <td>{student.details.name}</td>
+              <td>{student.details.email}</td>
+              <td>{student.details.address}</td>
               <td>
-                <Link className="btn-edit" to={'/users/' + student.uuid}>Go to Student</Link>
+                <Link className="btn-edit" to={'/student/' + student.uuid}>Go to Student</Link>
               </td>
             </tr>
           ))}
