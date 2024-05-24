@@ -19,7 +19,7 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function class()
+    public function grade()
     {
         return $this->belongsTo(Grade::class);
     }

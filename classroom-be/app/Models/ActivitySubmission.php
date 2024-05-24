@@ -14,6 +14,8 @@ class ActivitySubmission extends Model
     protected $table = 'activity_submissions';
     protected $fillable = ['student_id', 'activity_id', 'score'];
 
+    protected $with = ['activity'];
+
     public function student()
     {
         return $this->belongsTo(Student::class);
