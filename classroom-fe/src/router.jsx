@@ -2,9 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from './views/Login.jsx';
 import DefaultLayout from "./components/DefaultLayout.jsx";
 import GuestLayout from "./components/GuestLayout.jsx";
-import StudentProfile from "./views/StudentProfile.jsx";
-import StudentActivitesList from "./views/StudentActivitesList.jsx";
-import StudentsList from "./views/StudentsList.jsx";
+import StudentDashboard from "./views/StudentDashboard.jsx";
+import TeacherDashboard from "./views/TeacherDashboard.jsx";
+import Dashboard from "./views/Dashboard.jsx";
+import Classroom from "./views/Classroom.jsx";
+import Activities from "./views/Activities.jsx";
 
 const router = createBrowserRouter ([
   {
@@ -12,17 +14,25 @@ const router = createBrowserRouter ([
     element: <DefaultLayout />,
     children: [
       {
-        path: '/my-profile',
-        element: <StudentProfile />
+        path: '/dashboard',
+        element: <Dashboard />
       },
       {
-        path: '/activities',
-        element: <StudentActivitesList />
+        path: '/my-activities',
+        element: <StudentDashboard />
       },
       {
-        path: '/students',
-        element: <StudentsList />
+        path: '/my-classrooms',
+        element: <TeacherDashboard />
       },
+      {
+        path: '/classroom/:classroom_id',
+        element: <Classroom />
+      },
+      {
+        path: '/student/:student_id',
+        element: <Activities />
+      }
     ]
   },
   {
