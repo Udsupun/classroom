@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\UserResource;
 
 class StudentResource extends JsonResource
 {
@@ -16,9 +17,7 @@ class StudentResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'name' => $this->user->name,
-            'email' => $this->user->email,
-            'address' => $this->user->address,
+            'details' => UserResource::make($this->user),
         ];
     }
 }
