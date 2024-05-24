@@ -9,7 +9,9 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />
   }
 
-  console.log(user);
+  if (user.role === 'student') {
+    return <Navigate to="/my-profile" />
+  }
 
   const onLogout =  (ev) =>{
     ev.preventDefault();

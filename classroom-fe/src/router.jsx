@@ -2,9 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from './views/Login.jsx';
 import DefaultLayout from "./components/DefaultLayout.jsx";
 import GuestLayout from "./components/GuestLayout.jsx";
-import Students from "./views/Student.jsx";
-import Classes from "./views/Classes.jsx";
-import Activites from "./views/Activites.jsx";
+import StudentProfile from "./views/StudentProfile.jsx";
+import StudentActivitesList from "./views/StudentActivitesList.jsx";
+import StudentsList from "./views/StudentsList.jsx";
 
 const router = createBrowserRouter ([
   {
@@ -12,16 +12,16 @@ const router = createBrowserRouter ([
     element: <DefaultLayout />,
     children: [
       {
-        path: '/students',
-        element: <Students />
-      },
-      {
-        path: '/classes',
-        element: <Classes />
+        path: '/my-profile',
+        element: <StudentProfile />
       },
       {
         path: '/activities',
-        element: <Activites />
+        element: <StudentActivitesList />
+      },
+      {
+        path: '/students',
+        element: <StudentsList />
       },
     ]
   },
