@@ -51,6 +51,14 @@ class User extends Authenticatable
         ];
     }
 
+    public function getNameAttribute()
+    {
+        if (isset($this->first_name) && isset($this->last_name)) {
+            return ($this->first_name . ' ' . $this->last_name);
+        }
+        return null;
+    }
+
     public function student()
     {
         return $this->hasOne(Student::class);

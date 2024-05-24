@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use App\Http\Resources\StudentDetailsResource;
 use App\Http\Resources\GradeResource;
+use App\Http\Resources\StudentResource;
 use App\Models\Grade;
 use App\Models\Student;
 
@@ -57,9 +58,13 @@ class TeacherController extends Controller
     {
         $grade = Grade::where('uuid', $gradeUuid)->first();
         $students = Student::where('grade_id', $grade->id)->get();
+        error_log($students);
         return response()->json([
             'message' => 'Grade students list',
-            'data' => $gradeUuid
+            'data' => [
+                'grade' => GradeResource::make($grade),
+                'students' => StudentResource::collection($students)
+            ]
         ], Response::HTTP_OK);
     }
 
