@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Models\Student;
 use App\Models\Grade;
 use App\Models\Teacher;
+use App\Models\TeacherGrade;
+use App\Models\StudentSubmission;
+use App\Models\Activity;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,24 +24,24 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Create teachers with specific names
-        $teachers = [
-            ['first_name' => 'Diego','last_name' => 'Ven', 'email' => 'ven@organization.com', 'subject' => 'Mathematics'],
-            ['first_name' => 'Desmond','last_name' => 'Oster', 'email' => 'desmond@organization.com', 'subject' => 'Science'],
-        ];
+        // $teachers = [
+        //     ['first_name' => 'Diego','last_name' => 'Ven', 'email' => 'ven@organization.com', 'subject' => 'Mathematics'],
+        //     ['first_name' => 'Desmond','last_name' => 'Oster', 'email' => 'desmond@organization.com', 'subject' => 'Science'],
+        // ];
 
-        foreach ($teachers as $teacher) {
-            $user = User::factory()->create([
-                'first_name' => $teacher['first_name'],
-                'last_name' => $teacher['last_name'],
-                'email' => $teacher['email'],
-                'role' => 'teacher',
-            ]);
+        // foreach ($teachers as $teacher) {
+        //     $user = User::factory()->create([
+        //         'first_name' => $teacher['first_name'],
+        //         'last_name' => $teacher['last_name'],
+        //         'email' => $teacher['email'],
+        //         'role' => 'teacher',
+        //     ]);
 
-            Teacher::factory()->create([
-                'user_id' => $user->id,
-                'subject' => $teacher['subject']
-            ]);
-        }
+        //     Teacher::factory()->create([
+        //         'user_id' => $user->id,
+        //         'subject' => $teacher['subject']
+        //     ]);
+        // }
 
         // Create additional random teachers
         User::factory(5)->create(['role' => 'teacher'])->each(function ($user) {
@@ -54,21 +57,31 @@ class DatabaseSeeder extends Seeder
             ]);
 
             // Create additional random students
-            User::factory(10)->create(['role' => 'student'])->each(function ($user) use ($grade) {
-                Student::factory()->create(['user_id' => $user->id, 'grade_id' => $grade->id]);
+            User::factory(25)->create(['role' => 'student'])->each(function ($user) use ($grade) {
+                $student = Student::factory()->create([
+                    'user_id' => $user->id,
+                    'grade_id' => $grade->id
+                ]);
+                $activities = Activity::factory(20)->create();
+                $activities->each(function ($activity) use ($student) {
+                    $student->activities()->create([
+                        'activity_id' => $activity->id,
+                        'score' => rand(0, 100)
+                    ]);
+                });
             });
+
+            // Create students with specific names
+            // $students = [
+            //     ['first_name' => 'Andy','last_name' => 'Beth', 'email' => 'andy@organization.com'],
+            // ];
+
+            // $user = User::factory()->create([
+            //     'first_name' => 'Andy',
+            //     'last_name' => 'Beth',
+            //     'email' => 'andy@organization.com',
+            //     'role' => 'student',
+            // ]);
         }
-
-        // Create students with specific names
-        // $students = [
-        //     ['first_name' => 'Andy','last_name' => 'Beth', 'email' => 'andy@organization.com'],
-        // ];
-
-        // $user = User::factory()->create([
-        //     'first_name' => 'Andy',
-        //     'last_name' => 'Beth',
-        //     'email' => 'andy@organization.com',
-        //     'role' => 'student',
-        // ]);
     }
 }
