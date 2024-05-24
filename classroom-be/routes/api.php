@@ -10,8 +10,12 @@ Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::get('/student-details', [TeacherController::class, 'getStudentDetails']);
-    Route::get('/teacher-students', [TeacherController::class, 'getTeacherStudents']);
+    Route::get('/dashboard-details', [TeacherController::class, 'getStudentDashboardDetails']);
+
+    // Teacher routes
+    Route::get('/teacher-classes', [TeacherController::class, 'getTeacherClasses']);
+    Route::get('/grade-students/{gradeUuid}', [TeacherController::class, 'getGradeStudents']);
+    Route::get('/student-activities/{studentUuid}', [TeacherController::class, 'getStudentActivities']);
 });
 
 Route::post('login', [AuthController::class, 'login']);

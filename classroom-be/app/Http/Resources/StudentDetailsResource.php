@@ -19,6 +19,7 @@ class StudentDetailsResource extends JsonResource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
+            'address' => $this->address,
             'student_id' => $this->student->id,
             'grade' => $this->student->grade->name,
             'activities' => StudentActivityResource::collection($this->student->activities)

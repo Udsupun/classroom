@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use App\Http\Resources\StudentDetailsResource;
+use App\Http\Resources\GradeResource;
+use App\Models\Grade;
+use App\Models\Student;
 
 class TeacherController extends Controller
 {
     /**
      * Take teacher classes
     */
-    public function getStudentDetails()
+    public function getStudentDashboardDetails()
     {
         $user = Auth::user();
         if ($user->role != 'student') {
@@ -29,9 +32,9 @@ class TeacherController extends Controller
     }
 
     /**
-     * Take teacher classes
+     * Get teacher classes
     */
-    public function getTeacherStudents()
+    public function getTeacherClasses()
     {
         $user = Auth::user();
         if ($user->role != 'teacher') {
@@ -43,7 +46,33 @@ class TeacherController extends Controller
 
         return response()->json([
             'message' => 'Student profile details and activities',
-            'data' => $user->teacher->grades->grade->students
+            'data' => GradeResource::collection($user->teacher->grades)
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Get grade students
+    */
+    public function getGradeStudents(String $gradeUuid)
+    {
+        $grade = Grade::where('uuid', $gradeUuid)->first();
+        $students = Student::where('grade_id', $grade->id)->get();
+        return response()->json([
+            'message' => 'Grade students list',
+            'data' => $gradeUuid
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Get student activities
+    */
+    public function getStudentActivities(String $studentUuid)
+    {
+        $student = Student::where('uuid', $studentUuid)->first();
+        $activities = $student->activities;
+        return response()->json([
+            'message' => 'Student activities list',
+            'data' => $activities
         ], Response::HTTP_OK);
     }
 }
