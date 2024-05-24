@@ -13,6 +13,11 @@ class Grade extends Model
 
     protected $fillable = ['uuid', 'name'];
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function students()
     {
         return $this->hasMany(Student::class);

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TeacherController;
 use App\Actions\GetStudentActivities;
+use App\Actions\GetGradeStudents;
 
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::post('logout',[AuthController::class,'logout']);
@@ -15,7 +16,7 @@ Route::middleware(['auth:sanctum'])->group(function() {
 
     // Teacher routes
     Route::get('/teacher-classes', [TeacherController::class, 'getTeacherClasses']);
-    Route::get('/grade-students/{gradeUuid}', [TeacherController::class, 'getGradeStudents']);
+    Route::get('/grade-students/{grade}', GetGradeStudents::class);
     Route::get('/student-activities/{student}', GetStudentActivities::class);
 });
 
