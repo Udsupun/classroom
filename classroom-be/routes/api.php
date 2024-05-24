@@ -16,8 +16,7 @@ Route::middleware(['auth:sanctum'])->group(function() {
     // Teacher routes
     Route::get('/teacher-classes', [TeacherController::class, 'getTeacherClasses']);
     Route::get('/grade-students/{gradeUuid}', [TeacherController::class, 'getGradeStudents']);
-    // Route::get('/student-activities/{studentUuid}', [TeacherController::class, 'getStudentActivities']);
-    Route::get('/student-activities/{studentUuid}', GetStudentActivities::class);
+    Route::get('/student-activities/{student}', GetStudentActivities::class);
 });
 
 Route::post('login', [AuthController::class, 'login']);

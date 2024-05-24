@@ -65,29 +65,11 @@ class TeacherController extends Controller
     {
         $grade = Grade::where('uuid', $gradeUuid)->first();
         $students = Student::where('grade_id', $grade->id)->get();
-        error_log($students);
         return response()->json([
             'message' => 'Grade students list',
             'data' => [
                 'grade' => GradeResource::make($grade),
                 'students' => StudentResource::collection($students)
-            ]
-        ], Response::HTTP_OK);
-    }
-
-    /**
-     * Get student activities
-    */
-    public function getStudentActivities(String $studentUuid)
-    {
-        $student = Student::where('uuid', $studentUuid)->first();
-        return response()->json([
-            'message' => 'Student activities list',
-            'data' => [
-                'details' => UserResource::make($student->user),
-                'student_id' => $student->uuid,
-                'grade' => GradeResource::make($student->grade),
-                'activities' =>ActivityResource::collection($student->activities)
             ]
         ], Response::HTTP_OK);
     }

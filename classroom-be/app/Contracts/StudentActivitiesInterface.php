@@ -9,5 +9,5 @@ interface StudentActivitiesInterface
     /**
      * Get student by UUID.
      */
-    public function getStudentByUuid(string $studentUuid): Student;
+    // public function getStudentByUuid(string $studentUuid): Student;
 }

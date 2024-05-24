@@ -14,6 +14,11 @@ class Student extends Model
 
     protected $fillable = ['uuid', 'user_id', 'grade_id'];
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
