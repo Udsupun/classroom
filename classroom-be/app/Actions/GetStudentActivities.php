@@ -13,20 +13,19 @@ class GetStudentActivities
 {
     use AsAction;
 
-    public function handle(Student $student): Student
+    /**
+     * Controller method to handle the request and authorization.
+     */
+    public function asController(Student $student): Student
     {
         Gate::authorize('is-teacher');
 
         return $student;
     }
 
-    public function asController(Student $student): Student
-    {
-        Gate::authorize('is-teacher');
-
-        return $this->handle($student);
-    }
-
+    /**
+     * Response method to handle http response
+     */
     public function jsonResponse(Student $student): JsonResponse
     {
         return response()->json([

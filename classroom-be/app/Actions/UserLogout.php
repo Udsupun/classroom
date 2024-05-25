@@ -12,6 +12,9 @@ class UserLogout
 {
     use AsAction;
 
+    /**
+     * Handle the logout logic.
+     */
     public function handle(User $user): User
     {
         $user->currentAccessToken()->delete();
@@ -19,6 +22,9 @@ class UserLogout
         return $user;
     }
 
+    /**
+     * Controller method to handle the request.
+     */
     public function asController(Request $request): User
     {
         $user = $request->user();
@@ -26,6 +32,9 @@ class UserLogout
         return $this->handle($user);
     }
 
+    /**
+     * Response method to handle http response
+     */
     public function jsonResponse(): JsonResponse
     {
         return response()->json([], Response::HTTP_NO_CONTENT);

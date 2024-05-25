@@ -14,11 +14,17 @@ class GetStudentDashboardDetails
 {
     use AsAction;
 
+    /**
+     * Handle the fetch user logic.
+     */
     public function handle(): User
     {
         return Auth::user();
     }
 
+    /**
+     * Controller method to handle the request and authorization.
+     */
     public function asController(): User
     {
         Gate::authorize('is-student');
@@ -26,6 +32,9 @@ class GetStudentDashboardDetails
         return $this->handle();
     }
 
+    /**
+     * Response method to handle http response
+     */
     public function jsonResponse(User $user): JsonResponse
     {
         return response()->json([

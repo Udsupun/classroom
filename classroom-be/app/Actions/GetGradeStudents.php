@@ -17,6 +17,9 @@ class GetGradeStudents implements GradeStudentsInterface
 {
     use AsAction;
 
+    /**
+     * Handle get students by grade id logic.
+     */
     public function handle(Grade $grade): array
     {
         $students = $this->getStudentsByGradeId($grade->id);
@@ -27,6 +30,9 @@ class GetGradeStudents implements GradeStudentsInterface
         ];
     }
 
+    /**
+     * Controller method to handle the request and authorization.
+     */
     public function asController(Grade $grade): array
     {
         Gate::authorize('is-teacher');
@@ -42,6 +48,9 @@ class GetGradeStudents implements GradeStudentsInterface
         return Student::where('grade_id', $gradeId)->get();
     }
 
+    /**
+     * Response method to handle http response
+     */
     public function jsonResponse(array $data): JsonResponse
     {
         return response()->json([
