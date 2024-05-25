@@ -8,12 +8,11 @@ use App\Models\User;
 use App\Models\Activity;
 use App\Models\Grade;
 use App\Models\Student;
-use App\Models\Teacher;
-use App\Actions\GetStudentActivities;
-use App\Http\Resources\StudentActivityResource;
+use App\Actions\GetStudentDashboardDetails;
+use App\Http\Resources\StudentDashboardDetailsResource;
 use Laravel\Sanctum\Sanctum;
 
-class GetStudentActivitiesTest extends TestCase
+class GetStudentDashboardDetailsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -21,57 +20,49 @@ class GetStudentActivitiesTest extends TestCase
 
     private $studentUser;
 
-    private $teacherUser;
-
     private $grade;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->teacherUser = User::factory()->create(['role' => 'teacher']);
         $this->studentUser = User::factory()->create(['role' => 'student']);
         $activities = Activity::factory(5)->create();
         $this->grade = Grade::factory()->create(['name' => 'Grade 6']);
-        $teacher = Teacher::factory()->create([
-            'user_id' => $this->teacherUser->id
-        ]);
         $this->student = Student::factory()->create([
             'user_id' => $this->studentUser->id,
             'grade_id' => $this->grade->id,
         ]);
         $this->student->activities()->attach($activities);
-        $teacher->grades()->attach($this->grade);
 
         Sanctum::actingAs(
-            $this->teacherUser
+            $this->studentUser
         );
     }
 
     /**
-     * Test Student Activities from Action
+     * Test Student dashboard details from Action
      */
-    public function testStudentsActivitiesFromAction()
+    public function testStudentDashboardDetailsFromAction()
     {
         $activities = Activity::all();
 
-        $action = new GetStudentActivities();
+        $action = new GetStudentDashboardDetails();
 
-        $result = $action->asController($this->student);
+        $result = $action->handle();
 
-
-        $this->assertEquals($this->student, $result);
+        $this->assertEquals($this->studentUser, $result);
     }
 
     /**
-     * Test Student Activities from HTTP request
+     * Test Student dashboard details from HTTP request
      */
-    public function testStudentActivitiesFromHttpRequest()
+    public function testStudentDashboardDetailsFromHttpRequest()
     {
         $headers = [
             'Accept' => 'application/json',
         ];
-        $response = $this->withHeaders($headers)->get('/api/student-activities/' . $this->student->uuid);
+        $response = $this->withHeaders($headers)->get('/api/dashboard-details');
 
         $responseData = $response->json();
 
@@ -83,3 +74,4 @@ class GetStudentActivitiesTest extends TestCase
         $this->assertEquals($this->studentUser->name, $responseData['data']['details']['name']);
     }
 }
+

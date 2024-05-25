@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Actions;
+namespace Tests\Feature\Actions;
 
 use App\Actions\GetGradeStudents;
 use App\Http\Resources\GradeResource;
