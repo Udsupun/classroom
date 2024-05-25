@@ -270,3 +270,9 @@ table > tbody > tr > td {
     font-family: Arial, sans-serif;
     font-size: 16px;
   }
+
+  .error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }

@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../axiosClient";
 import { useStateContext } from "../contexts/ContextProvider.jsx";
+import { useState } from "react";
 
 export default function login() {
 
@@ -9,6 +10,7 @@ export default function login() {
   const passwordRef = useRef();
 
   const { setUser, setToken } = useStateContext();
+  const [errors, setErrors] = useState();
 
   const submit = (e) => {
     const payload = {
@@ -19,11 +21,15 @@ export default function login() {
     axiosClient.post("/login", payload).then(({data}) => {
       setUser(data.data.user);
       setToken(data.data.token);
+      setErrors({});
     }).catch(err => {
       const response = err.response;
       if (response && response.status === 422) {
         console.log(response.data.errors);
       }
+      console.log(response.data.message);
+      setErrors(response.data.message);
+      console.log(errors);
     })
   }
 
@@ -37,6 +43,7 @@ export default function login() {
           <input ref={emailRef} type="email" placeholder="Email" />
           <input ref={passwordRef} type="password" placeholder="Password" />
           <button className="btn btn-block">Login</button>
+          {errors && <div className="error">{errors}</div>}
         </form>
       </div>
     </div>
