@@ -61,12 +61,34 @@ class GetGradeStudentsTest extends TestCase
      */
     public function testGradeStudentsFromHttpRequest()
     {
-        $response = $this->get('/api/grade-students/'.$this->grade->uuid);
+        $headers = [
+            'Accept' => 'application/json',
+        ];
+        $response = $this->withHeaders($headers)->get('/api/grade-students/'.$this->grade->uuid);
 
         $responseData = $response->json();
 
         $response->assertStatus(200);
         $response->assertHeader('Content-Type', 'application/json');
-        $this->assertCount(10, $responseData['students']);
+        $response->assertJsonStructure([
+            'message',
+            'data' => [
+                'grade' => [
+                    'uuid',
+                    'name',
+                ],
+                'students' => [
+                    '*' => [
+                        'uuid',
+                        'details' => [
+                            'name',
+                            'email',
+                            'address'
+                        ]
+                    ],
+                ]
+            ],
+        ]);
+        $this->assertCount(10, $responseData['data']['students']);
     }
 }

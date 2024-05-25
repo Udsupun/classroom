@@ -68,7 +68,31 @@ class GetStudentDashboardDetailsTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertHeader('Content-Type', 'application/json');
+        $response->assertJsonStructure([
+            'message',
+            'data' => [
+                'details' => [
+                    'name',
+                    'email',
+                    'address'
+                ],
+                'student_id',
+                'grade' => [
+                    'uuid',
+                    'name'
+                ],
+                'activities' => [
+                    '*' => [
+                        'uuid',
+                        'name',
+                        'subject',
+                        'score'
+                    ],
+                ]
+            ],
+        ]);
         $this->assertCount(5, $responseData['data']['activities']);
+        $this->assertEquals('Dashboard details', $responseData['message']);
         $this->assertEquals($this->student->uuid, $responseData['data']['student_id']);
         $this->assertEquals($this->grade->name, $responseData['data']['grade']['name']);
         $this->assertEquals($this->studentUser->name, $responseData['data']['details']['name']);
