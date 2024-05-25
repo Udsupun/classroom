@@ -6,8 +6,8 @@ use App\Http\Resources\StudentActivityResource;
 use App\Models\Student;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Gate;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetStudentActivities
 {
