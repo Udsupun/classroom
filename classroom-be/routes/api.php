@@ -6,7 +6,6 @@ use App\Actions\GetStudentDashboardDetails;
 use App\Actions\GetTeacherDashboardDetails;
 use App\Actions\UserLogin;
 use App\Actions\UserLogout;
-use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +21,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/grade-students/{grade}', GetGradeStudents::class);
     Route::get('/student-activities/{student}', GetStudentActivities::class);
 
-    // Route::post('logout', [AuthController::class, 'logout']);
     Route::post('logout', UserLogout::class);
 });
 
