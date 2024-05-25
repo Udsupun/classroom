@@ -36,7 +36,7 @@ class UserLogin
         if (! $user) {
             return response()->json([
                 'status' => false,
-                'message' => 'User email or password wrong',
+                'message' => 'User email or password is wrong',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
