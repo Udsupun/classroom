@@ -2,16 +2,15 @@
 
 namespace Tests\Feature\Actions;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
+use App\Actions\GetStudentActivities;
 use App\Models\Activity;
 use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Teacher;
-use App\Actions\GetStudentActivities;
-use App\Http\Resources\StudentActivityResource;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class GetStudentActivitiesTest extends TestCase
 {
@@ -34,7 +33,7 @@ class GetStudentActivitiesTest extends TestCase
         $activities = Activity::factory(5)->create();
         $this->grade = Grade::factory()->create(['name' => 'Grade 6']);
         $teacher = Teacher::factory()->create([
-            'user_id' => $this->teacherUser->id
+            'user_id' => $this->teacherUser->id,
         ]);
         $this->student = Student::factory()->create([
             'user_id' => $this->studentUser->id,
@@ -59,7 +58,6 @@ class GetStudentActivitiesTest extends TestCase
 
         $result = $action->asController($this->student);
 
-
         $this->assertEquals($this->student, $result);
     }
 
@@ -71,7 +69,7 @@ class GetStudentActivitiesTest extends TestCase
         $headers = [
             'Accept' => 'application/json',
         ];
-        $response = $this->withHeaders($headers)->get('/api/student-activities/' . $this->student->uuid);
+        $response = $this->withHeaders($headers)->get('/api/student-activities/'.$this->student->uuid);
 
         $responseData = $response->json();
 
@@ -84,21 +82,21 @@ class GetStudentActivitiesTest extends TestCase
                 'details' => [
                     'name',
                     'email',
-                    'address'
+                    'address',
                 ],
                 'student_id',
                 'grade' => [
                     'uuid',
-                    'name'
+                    'name',
                 ],
                 'activities' => [
                     '*' => [
                         'uuid',
                         'name',
                         'subject',
-                        'score'
+                        'score',
                     ],
-                ]
+                ],
             ],
         ]);
         $this->assertEquals($this->student->uuid, $responseData['data']['student_id']);

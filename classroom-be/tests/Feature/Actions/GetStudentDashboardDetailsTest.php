@@ -2,15 +2,14 @@
 
 namespace Tests\Feature\Actions;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
+use App\Actions\GetStudentDashboardDetails;
 use App\Models\Activity;
 use App\Models\Grade;
 use App\Models\Student;
-use App\Actions\GetStudentDashboardDetails;
-use App\Http\Resources\StudentDashboardDetailsResource;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class GetStudentDashboardDetailsTest extends TestCase
 {
@@ -74,21 +73,21 @@ class GetStudentDashboardDetailsTest extends TestCase
                 'details' => [
                     'name',
                     'email',
-                    'address'
+                    'address',
                 ],
                 'student_id',
                 'grade' => [
                     'uuid',
-                    'name'
+                    'name',
                 ],
                 'activities' => [
                     '*' => [
                         'uuid',
                         'name',
                         'subject',
-                        'score'
+                        'score',
                     ],
-                ]
+                ],
             ],
         ]);
         $this->assertCount(5, $responseData['data']['activities']);
@@ -98,4 +97,3 @@ class GetStudentDashboardDetailsTest extends TestCase
         $this->assertEquals($this->studentUser->name, $responseData['data']['details']['name']);
     }
 }
-

@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\Actions;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use App\Models\User;
+use App\Actions\GetTeacherDashboardDetails;
 use App\Models\Grade;
 use App\Models\Teacher;
-use App\Actions\GetTeacherDashboardDetails;
-use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class GetTeacherDashboarddetailsTest extends TestCase
 {

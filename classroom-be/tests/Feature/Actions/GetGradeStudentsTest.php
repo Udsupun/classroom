@@ -9,9 +9,8 @@ use App\Models\Grade;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Gate;
-use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
 class GetGradeStudentsTest extends TestCase
 {
@@ -83,10 +82,10 @@ class GetGradeStudentsTest extends TestCase
                         'details' => [
                             'name',
                             'email',
-                            'address'
-                        ]
+                            'address',
+                        ],
                     ],
-                ]
+                ],
             ],
         ]);
         $this->assertCount(10, $responseData['data']['students']);
