@@ -6,18 +6,22 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TeacherController;
 use App\Actions\GetStudentActivities;
 use App\Actions\GetGradeStudents;
+use App\Actions\GetTeacherDashboardDetails;
 
 Route::middleware(['auth:sanctum'])->group(function() {
-    Route::post('logout',[AuthController::class,'logout']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    //Student routes
     Route::get('/dashboard-details', [TeacherController::class, 'getStudentDashboardDetails']);
 
     // Teacher routes
-    Route::get('/teacher-classes', [TeacherController::class, 'getTeacherClasses']);
+    // Route::get('/teacher-classes', [TeacherController::class, 'getTeacherClasses']);
+    Route::get('/teacher-classes', GetTeacherDashboardDetails::class);
     Route::get('/grade-students/{grade}', GetGradeStudents::class);
     Route::get('/student-activities/{student}', GetStudentActivities::class);
+
+    Route::post('logout',[AuthController::class,'logout']);
 });
 
 Route::post('login', [AuthController::class, 'login']);
