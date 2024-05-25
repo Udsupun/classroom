@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TeacherGrade extends Model
 {
@@ -15,12 +16,18 @@ class TeacherGrade extends Model
 
     public $timestamps = false;
 
-    public function teacher()
+    /**
+     * Teacher grade owned teacher
+     */
+    public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
     }
 
-    public function grade()
+    /**
+     * Teacher grade owned grade
+     */
+    public function grade(): BelongsTo
     {
         return $this->belongsTo(Grade::class);
     }

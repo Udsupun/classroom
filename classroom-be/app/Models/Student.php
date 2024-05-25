@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
@@ -16,17 +18,26 @@ class Student extends Model
         return 'uuid';
     }
 
-    public function user()
+    /**
+     * Student owned user
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function grade()
+    /**
+     * Student owned grade
+     */
+    public function grade(): BelongsTo
     {
         return $this->belongsTo(Grade::class);
     }
 
-    public function activities()
+    /**
+     * Student's activties
+     */
+    public function activities(): BelongsToMany
     {
         return $this->belongsToMany(Activity::class, 'student_activities');
     }

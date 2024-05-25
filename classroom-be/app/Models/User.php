@@ -49,22 +49,31 @@ class User extends Authenticatable
         ];
     }
 
-    public function getNameAttribute()
-    {
-        if (isset($this->first_name) && isset($this->last_name)) {
-            return $this->first_name.' '.$this->last_name;
-        }
-
-        return null;
-    }
-
+    /**
+     * If the logged in user is student user is having a student
+     */
     public function student(): HasOne
     {
         return $this->hasOne(Student::class);
     }
 
+    /**
+     * If the logged in user is teacher user is having a teacher
+     */
     public function teacher(): HasOne
     {
         return $this->hasOne(Teacher::class);
+    }
+
+    /**
+     * Name attribute combining first name and last name
+     */
+    public function getNameAttribute(): string
+    {
+        if (isset($this->first_name) || isset($this->last_name)) {
+            return $this->first_name.' '.$this->last_name;
+        }
+
+        return '';
     }
 }
