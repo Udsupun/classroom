@@ -23,10 +23,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::define('is-teacher', function (User $user) {
             return $user->role === 'teacher';
-        });
+        }, 'You are not authorized to access this.');
 
         Gate::define('is-student', function (User $user) {
             return $user->role === 'student';
-        });
+        }, 'You are not authorized to access this.');
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Actions;
 
-use App\Contracts\TeacherDashboardDetailsInterface;
 use App\Http\Resources\GradeResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -11,15 +10,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class GetTeacherDashboardDetails implements TeacherDashboardDetailsInterface
+class GetTeacherDashboardDetails
 {
     use AsAction;
 
     public function handle(): User
     {
+        return Auth::user();
+    }
+
+    public function asController(): User
+    {
         Gate::authorize('is-teacher');
 
-        return Auth::user();
+        return $this->handle();
     }
 
     public function jsonResponse(User $user): JsonResponse

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Illuminate\Support\Facades\Gate;
 
 class GetGradeStudents implements GradeStudentsInterface
 {
@@ -26,6 +27,16 @@ class GetGradeStudents implements GradeStudentsInterface
         ];
     }
 
+    public function asController(Grade $grade): array
+    {
+        Gate::authorize('is-teacher');
+
+        return $this->handle($grade);
+    }
+
+    /**
+     * Get student grade by id
+     */
     public function getStudentsByGradeId(int $gradeId): Collection
     {
         return Student::where('grade_id', $gradeId)->get();
