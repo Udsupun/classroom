@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Gate;
 use Tests\TestCase;
+use Laravel\Sanctum\Sanctum;
 
 class GetGradeStudentsTest extends TestCase
 {
@@ -30,9 +31,16 @@ class GetGradeStudentsTest extends TestCase
                 'grade_id' => $this->grade->id,
             ]);
         });
+        $user = User::factory()->create(['role' => 'teacher']);
+        Sanctum::actingAs(
+            $user
+        );
     }
 
-    public function testHandleMethodReturnsCorrectData()
+    /**
+     * Test Grade Students from Action
+     */
+    public function testGradeStudentsFromAction()
     {
         $students = Student::all();
 
@@ -48,13 +56,12 @@ class GetGradeStudentsTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function testAsControllerMethodAuthorizesAndReturnsCorrectData()
+    /**
+     * Test Grade Students from HTTP request
+     */
+    public function testGradeStudentsFromHttpRequest()
     {
-        $user = User::factory()->create(['role' => 'teacher']);
-        Gate::shouldReceive('authorize')->with('is-teacher')->once();
-
-        $response = $this->actingAs($user)
-            ->get('/api/grade-students/'.$this->grade->uuid);
+        $response = $this->get('/api/grade-students/'.$this->grade->uuid);
 
         $responseData = $response->json();
 

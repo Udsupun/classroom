@@ -14,23 +14,31 @@ class GetStudentActivities
     use AsAction;
 
     /**
+     * Handle get students by grade id logic.
+     */
+    public function handle(Student $student): StudentActivityResource
+    {
+        return StudentActivityResource::make($student);
+    }
+
+    /**
      * Controller method to handle the request and authorization.
      */
-    public function asController(Student $student): Student
+    public function asController(Student $student): StudentActivityResource
     {
         Gate::authorize('is-teacher');
 
-        return $student;
+        return $this->handle($student);
     }
 
     /**
      * Response method to handle http response
      */
-    public function jsonResponse(Student $student): JsonResponse
+    public function jsonResponse(StudentActivityResource $data): JsonResponse
     {
         return response()->json([
             'message' => 'Student activities list',
-            'data' => StudentActivityResource::make($student),
+            'data' => $data,
         ], Response::HTTP_OK);
     }
 }
