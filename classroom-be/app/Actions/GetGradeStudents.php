@@ -2,7 +2,6 @@
 
 namespace App\Actions;
 
-use App\Contracts\GradeStudentsInterface;
 use App\Http\Resources\GradeResource;
 use App\Http\Resources\StudentResource;
 use App\Models\Grade;
@@ -13,7 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class GetGradeStudents implements GradeStudentsInterface
+class GetGradeStudents
 {
     use AsAction;
 
@@ -43,7 +42,7 @@ class GetGradeStudents implements GradeStudentsInterface
     /**
      * Get student grade by id
      */
-    public function getStudentsByGradeId(int $gradeId): Collection
+    private function getStudentsByGradeId(int $gradeId): Collection
     {
         return Student::where('grade_id', $gradeId)->get();
     }

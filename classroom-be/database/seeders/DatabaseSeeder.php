@@ -35,11 +35,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $teachers = Teacher::all()->random(2);
-            $teachers->each(function ($teacher) use ($grade) {
-                $teacher->grades()->create([
-                    'grade_id' => $grade->id,
-                ]);
-            });
+            $grade->teachers()->attach($teachers);
 
             // Create additional random students
             User::factory(10)->create(['role' => 'student'])->each(function ($user) use ($grade) {
@@ -48,11 +44,7 @@ class DatabaseSeeder extends Seeder
                     'grade_id' => $grade->id,
                 ]);
                 $activities = Activity::factory(5)->create();
-                $activities->each(function ($activity) use ($student) {
-                    $student->activities()->create([
-                        'activity_id' => $activity->id,
-                    ]);
-                });
+                $student->activities()->attach($activities);
             });
         }
     }
