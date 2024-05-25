@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
+use App\Modeles\Teacher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Student;
-use App\Modeles\Teacher;
 
 class Grade extends Model
 {

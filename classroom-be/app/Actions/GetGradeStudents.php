@@ -3,14 +3,14 @@
 namespace App\Actions;
 
 use App\Contracts\GradeStudentsInterface;
-use Lorisleiva\Actions\Concerns\AsAction;
-use App\Models\Student;
-use App\Models\Grade;
 use App\Http\Resources\GradeResource;
 use App\Http\Resources\StudentResource;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
+use App\Models\Grade;
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetGradeStudents implements GradeStudentsInterface
 {
@@ -19,9 +19,10 @@ class GetGradeStudents implements GradeStudentsInterface
     public function handle(Grade $grade): array
     {
         $students = $this->getStudentsByGradeId($grade->id);
+
         return [
             'grade' => GradeResource::make($grade),
-            'students' => StudentResource::collection($students)
+            'students' => StudentResource::collection($students),
         ];
     }
 
@@ -34,7 +35,7 @@ class GetGradeStudents implements GradeStudentsInterface
     {
         return response()->json([
             'message' => 'Grade students list',
-            'data' => $data
+            'data' => $data,
         ], Response::HTTP_OK);
     }
 }

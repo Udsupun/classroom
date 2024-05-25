@@ -18,7 +18,7 @@ class ActivityResource extends JsonResource
             'uuid' => $this->uuid,
             'name' => $this->name,
             'subject' => $this->subject,
-            'score' => $this->score
+            'score' => $this->score,
         ];
     }
 }

@@ -4,9 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\ActivityResource;
-use App\Http\Resources\GradeResource;
-use App\Http\Resources\UserResource;
 
 class StudentActivityResource extends JsonResource
 {
@@ -21,7 +18,7 @@ class StudentActivityResource extends JsonResource
             'details' => UserResource::make($this->user),
             'student_id' => $this->uuid,
             'grade' => GradeResource::make($this->grade),
-            'activities' =>ActivityResource::collection($this->activities)
+            'activities' => ActivityResource::collection($this->activities),
         ];
     }
 }

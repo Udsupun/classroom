@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Activity;
-use App\Models\Student;
 
 class StudentActivity extends Model
 {
     use HasFactory;
 
     protected $table = 'student_activities';
+
     protected $fillable = ['student_id', 'activity_id', 'score'];
 
     protected $with = ['activity'];

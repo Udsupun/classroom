@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\ActivityResource;
 
 class StudentDetailsResource extends JsonResource
 {
@@ -21,7 +20,7 @@ class StudentDetailsResource extends JsonResource
             'email' => $this->email,
             'address' => $this->address,
             'grade' => $this->student->grade->name,
-            'activities' => ActivityResource::collection($this->student->activities)
+            'activities' => ActivityResource::collection($this->student->activities),
         ];
     }
 }

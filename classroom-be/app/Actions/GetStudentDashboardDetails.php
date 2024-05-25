@@ -3,14 +3,13 @@
 namespace App\Actions;
 
 use App\Contracts\StudentDashboardDetailsInterface;
-use Lorisleiva\Actions\Concerns\AsAction;
-use App\Models\User;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Database\Eloquent\Collection;
 use App\Http\Resources\StudentDashboardDetailsResource;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetStudentDashboardDetails implements StudentDashboardDetailsInterface
 {
@@ -19,6 +18,7 @@ class GetStudentDashboardDetails implements StudentDashboardDetailsInterface
     public function handle(): User
     {
         Gate::authorize('is-student');
+
         return Auth::user();
     }
 
@@ -26,7 +26,7 @@ class GetStudentDashboardDetails implements StudentDashboardDetailsInterface
     {
         return response()->json([
             'message' => 'Dashboard details',
-            'data' => StudentDashboardDetailsResource::make($user)
+            'data' => StudentDashboardDetailsResource::make($user),
         ], Response::HTTP_OK);
     }
 }

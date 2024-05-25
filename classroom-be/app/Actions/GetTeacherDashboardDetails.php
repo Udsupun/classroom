@@ -3,14 +3,13 @@
 namespace App\Actions;
 
 use App\Contracts\TeacherDashboardDetailsInterface;
-use Lorisleiva\Actions\Concerns\AsAction;
+use App\Http\Resources\GradeResource;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use App\Models\User;
-use App\Http\Resources\GradeResource;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetTeacherDashboardDetails implements TeacherDashboardDetailsInterface
 {
@@ -19,6 +18,7 @@ class GetTeacherDashboardDetails implements TeacherDashboardDetailsInterface
     public function handle(): User
     {
         Gate::authorize('is-teacher');
+
         return Auth::user();
     }
 
@@ -26,7 +26,7 @@ class GetTeacherDashboardDetails implements TeacherDashboardDetailsInterface
     {
         return response()->json([
             'message' => 'Dashboard details',
-            'data' => GradeResource::collection($user->teacher->grades)
+            'data' => GradeResource::collection($user->teacher->grades),
         ], Response::HTTP_OK);
     }
 }

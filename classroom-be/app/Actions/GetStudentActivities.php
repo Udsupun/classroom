@@ -3,11 +3,11 @@
 namespace App\Actions;
 
 use App\Contracts\StudentActivitiesInterface;
-use Lorisleiva\Actions\Concerns\AsAction;
-use App\Models\Student;
 use App\Http\Resources\StudentActivityResource;
-use Illuminate\Http\Response;
+use App\Models\Student;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetStudentActivities implements StudentActivitiesInterface
 {
@@ -22,7 +22,7 @@ class GetStudentActivities implements StudentActivitiesInterface
     {
         return response()->json([
             'message' => 'Student activities list',
-            'data' => StudentActivityResource::make($student)
+            'data' => StudentActivityResource::make($student),
         ], Response::HTTP_OK);
     }
 }

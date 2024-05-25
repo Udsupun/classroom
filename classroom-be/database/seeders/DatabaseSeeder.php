@@ -2,15 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Activity;
+use App\Models\Grade;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use App\Models\Student;
-use App\Models\Grade;
-use App\Models\Teacher;
-use App\Models\TeacherGrade;
-use App\Models\StudentActivity;
-use App\Models\Activity;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,13 +31,13 @@ class DatabaseSeeder extends Seeder
 
         foreach ($names as $name) {
             $grade = Grade::factory()->create([
-                'name' => $name
+                'name' => $name,
             ]);
 
             $teachers = Teacher::all()->random(2);
             $teachers->each(function ($teacher) use ($grade) {
                 $teacher->grades()->create([
-                    'grade_id' => $grade->id
+                    'grade_id' => $grade->id,
                 ]);
             });
 
@@ -47,12 +45,12 @@ class DatabaseSeeder extends Seeder
             User::factory(10)->create(['role' => 'student'])->each(function ($user) use ($grade) {
                 $student = Student::factory()->create([
                     'user_id' => $user->id,
-                    'grade_id' => $grade->id
+                    'grade_id' => $grade->id,
                 ]);
                 $activities = Activity::factory(5)->create();
                 $activities->each(function ($activity) use ($student) {
                     $student->activities()->create([
-                        'activity_id' => $activity->id
+                        'activity_id' => $activity->id,
                     ]);
                 });
             });

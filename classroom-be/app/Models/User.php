@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Student;
-use App\Models\Teacher;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -25,7 +23,7 @@ class User extends Authenticatable
         'address',
         'email',
         'password',
-        'role'
+        'role',
     ];
 
     /**
@@ -54,8 +52,9 @@ class User extends Authenticatable
     public function getNameAttribute()
     {
         if (isset($this->first_name) && isset($this->last_name)) {
-            return ($this->first_name . ' ' . $this->last_name);
+            return $this->first_name.' '.$this->last_name;
         }
+
         return null;
     }
 

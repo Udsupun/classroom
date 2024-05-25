@@ -19,8 +19,8 @@ class ActivityFactory extends Factory
         return [
             'uuid' => $this->faker->uuid(),
             'name' => $this->faker->sentence(2),
-            'subject' => 'Subject ' . $this->faker->text(10),
-            'score' => $this->faker->randomElement([20, 40, 60, 80, 100])
+            'subject' => 'Subject '.$this->faker->text(10),
+            'score' => $this->faker->randomElement([20, 40, 60, 80, 100]),
         ];
     }
 }
