@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
         DB::table('grades')->truncate();
         DB::table('teachers')->truncate();
         DB::table('users')->truncate();
+        DB::table('teacher_grades')->truncate();
+        DB::table('student_activities')->truncate();
+        DB::table('activities')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Create additional random teachers
