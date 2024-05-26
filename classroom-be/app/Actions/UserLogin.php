@@ -13,6 +13,22 @@ class UserLogin
 {
     use AsAction;
 
+    public function rules(): array
+    {
+        return [
+            'email' => ['required'],
+            'password' => ['required'],
+        ];
+    }
+
+    public function getValidationMessages(): array
+    {
+        return [
+            'email.required' => 'The email field is required.',
+            'password.required' => 'The password field is required.',
+        ];
+    }
+
     /**
      * Handle the login logic.
      */
