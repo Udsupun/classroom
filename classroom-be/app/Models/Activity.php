@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Contracts\ActivityInterface;
 
-class Activity extends Model
+class Activity extends Model implements ActivityInterface
 {
     use HasFactory;
 
